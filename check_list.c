@@ -6,7 +6,7 @@
 /*   By: clbernar <clbernar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/13 19:24:31 by clbernar          #+#    #+#             */
-/*   Updated: 2023/03/03 14:24:59 by clbernar         ###   ########.fr       */
+/*   Updated: 2023/03/08 17:53:26 by clbernar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,15 +25,17 @@ int	is_only_digit(int argc, char **argv)
 		j = 0;
 		while (argv[i][j])
 		{
-			if (ft_isdigit(argv[i][j + 1]) == 1 && argv[i][j] == '-')
-				j++;
+			if (argv[i][j] == '-' && ft_isdigit(argv[i][j + 1]) == 1)
+			{
+				if (j == 0 || argv[i][j - 1] == ' ')
+					j++;
+			}
 			if (ft_isdigit(argv[i][j]) == 0 && argv[i][j] != ' ')
 				return (1);
 			j++;
 		}
 		i++;
 	}
-	i = 1;
 	return (0);
 }
 
@@ -92,7 +94,7 @@ int	check_overflow(const char *nptr)
 	{
 		value = value * 10 + (*nptr - 48);
 		nptr++;
-		if (value > INT_MAX || value < INT_MIN)
+		if ((value * sign) > INT_MAX || (value * sign) < INT_MIN)
 			return (1);
 	}
 	return (0);
